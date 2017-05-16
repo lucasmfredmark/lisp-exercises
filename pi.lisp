@@ -1,4 +1,3 @@
-
 ;;
 ;; Preamble: Lisp prerequisits
 ;;
@@ -21,10 +20,6 @@
   )
 )
 
-;;
-;; Exercise
-;;
-
 ;; Exercise
 ;; Your task is to implement the Gauss-Legendre algorithm for calculating pi
 ;; and extract 10.000 (ten thousand) digits
@@ -46,4 +41,41 @@
 ;; the remainder of your program.
 ;; So in short, your call to your pi function could look like this:
 ;;   (myPi 1L0 (/ 1L0 (sqrt 2L0)) (/ 1L0 4L0) 1L0)
-;; 
+;;
+
+(defun nextA (pA pB)
+  (/ (+ pA pB) 2)
+)
+
+(defun nextB (pA pB)
+  (sqrt (* pA pB))
+)
+
+(defun nextT (pT pP pA nA)
+  (- pT (expt (* pP (- pA nA)) 2))
+)
+
+(defun nextP (pP)
+  (* 2 pP)
+)
+
+(defun myPi (a b tt p pPie)
+  (let
+    (
+      (aNext (nextA a b)) (bNext (nextB a b)) (pNext (nextP p))
+    )
+    (let
+      (
+        (tNext (nextT tt p a aNext))
+      )
+      (let
+        (
+          (nPie (roundToPrecision ( / (expt(+ aNext bNext) 2) (* 4 tNext) ) 10000))
+        )
+        (if (equal nPie pPie) nPie (myPi aNext bNext tNext pNext nPie))
+      )
+    )
+  )
+)
+
+(write (coerce(myPi 1L0 (/ 1L0 (sqrt 2L0)) (/ 1L0 4L0) 1L0 3L0) 'long-float))

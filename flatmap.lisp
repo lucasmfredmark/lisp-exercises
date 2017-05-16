@@ -11,9 +11,9 @@
 ;; into a new list. But while copying, it does something to the data. In
 ;; other words it 'maps' the elements in the original to the new elements in
 ;; the new list. Your function should take two arguments: a function and a list
-(defun myMap (f l) l)
-
-(myMap (lambda (a) (+ a 2)) (list 3 5 7 9)) ;; Should return: (5 7 9 11)
+(defun myMap (l fn) (if (equal l nil) nil (cons (funcall fn (car l)) (myMap (cdr l) fn))))
+(write (myMap (list 3 5 7 9) (lambda (a) (+ a 2)))) ;; Should return: (5 7 9 11)
+(write-line"")
 
 ;; Part 2 - Flattening
 ;; Flat map is doing two things: it's first taking a list and then flattening
@@ -41,12 +41,13 @@
 ;; lists within lists and leave any lists in deeper levels.
 ;;
 ;; Hint: Use the 'append' function which appends a list to another list
-(defun myFlatten (l) l)
-
+(defun myFlatten (l) (if (equal l nil) nil (append (car l) (myFlatten (cdr l)))))
 (write (myFlatten (list (list 1 2 3) (list 4 5 6)))) ;; should be (1 2 3 4 5 6)
+(write-line"")
 
 ;; Part 3 - Flat mapping
 ;; Combining the mapping and the flattening part, your job now is to do both:
 ;; flatten the full list while also applying a function to the elements.
 ;;
 ;; Hint: Use your 'myMap' function from before to map all elements in a sublist.
+(write (myMap (myFlatten (list (list 1 2 3) (list 4 5 6))) (lambda (a) (* a 3)))) ;; should be (3 6 9 12 15 18)
