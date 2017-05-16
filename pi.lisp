@@ -70,7 +70,7 @@
       )
       (let
         (
-          (nPie (roundToPrecision ( / (expt(+ aNext bNext) 2) (* 4 tNext) ) 10000))
+          (nPie (roundToPrecision ( / (expt (+ aNext bNext) 2) (* 4 tNext) ) 10000))
         )
         (if (equal nPie pPie) nPie (myPi aNext bNext tNext pNext nPie))
       )
@@ -78,4 +78,4 @@
   )
 )
 
-(write (coerce(myPi 1L0 (/ 1L0 (sqrt 2L0)) (/ 1L0 4L0) 1L0 3L0) 'long-float))
+(write (coerce (myPi 1L0 (/ 1L0 (sqrt 2L0)) (/ 1L0 4L0) 1L0 3L0) 'long-float))
